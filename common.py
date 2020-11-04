@@ -554,5 +554,5 @@ def timeSleep(inputTime):
     time.sleep(inputTime)
 
 # Variables
-waitTime = 0
-waitTimeWhenOpening = 1
+waitTime = 1
+waitTimeWhenOpening = 4
