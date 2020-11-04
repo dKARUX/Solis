@@ -8,12 +8,14 @@ import csv
 import xlwt
 import pandas
 """
+from PosReader import *
 import pyautogui
 import os
 import math
 import time
 import numpy
 import tkinter
+import subprocess
 """
 import paramiko
 import sqlite3
@@ -41,12 +43,12 @@ class HostSystem:
         self.cpuArchTarget = cpuArchTarget
 
 class Application:
-    def __init__(self, name, path, version, build, CPUArchTarget):
+    def __init__(self, name='default', path='default', version='default', build='default', CPUArchTarget='default'):
         self.name = name
-        self.path = path
+        self.path = 'C:' + os.path.sep + 'Program Files (x86)' + os.path.sep + 'FinalWire' + os.path.sep + 'AIDA64 Engineer'  + os.path.sep + 'aida64.exe'
         self.version = version
         self.build = build
-        self.cpuArchTarget = cpuArchTarget
+        self.CPUArchTarget = CPUArchTarget
     def getName(self):
         return self.name
     def setName(self, name):
@@ -63,8 +65,11 @@ class Application:
         return self.build
     def setBuild(self, build):
         self.build = build
-    def getCPUArchTarget(self, cpuArchTarget):
-        self.cpuArchTarget = cpuArchTarget
+    def setCPUArchTarget(self, CPUArchTarget):
+        self.CPUArchTarget = CPUArchTarget
+    def OpenTargetApp(self):
+        os.system('"' + self.path + '"')
+        timeSleep(waitTimeWhenOpening)
 
 class Testing:
     def __init__(self, duration, logFileName, logFileAddress):
@@ -287,6 +292,8 @@ class MenuBar():
                 timeSleep(waitTime) 
             pyautogui.press('enter')
             timeSleep(waitTimeWhenOpening)
+    def mouseLeftClickMenuFile(self):
+        pyautogui.click(menuFileReadPos()['x'], menuFileReadPos()['y'])
 
 class Toolbar(Window):
     def __init__(self, name):
